@@ -1,2 +1,3 @@
-# RubyProject
-Project for university
+Ruby server for mobile app
+
+MMCS Project
