@@ -16,23 +16,10 @@ class SuperusersController < APIBaseController
     end
   end
 
-  def create
-    @superuser = Superuser.create(create_superuser_params)
-    if @superuser.errors.blank?
-      render status: :ok
-    else
-      render json: @superuser.errors, status: :bad_request
-    end
-  end
-
   def destroy
     @superuser.delete
   end
 
-  def online_users
-    online_users = User.where(online: true).count
-      render json: {users_count_online: online_users}, status: :ok
-  end
 
   def show_user
     user = User.find(params[:id])
@@ -43,25 +30,6 @@ class SuperusersController < APIBaseController
     end
   end
 
-  def block_user
-    user = User.where(phone_number: params['phone_number'])
-    if user.present?
-      user.update(banned: true, reason: params['reason'])
-      render json: user, status: :ok
-    else
-      render status: :not_found
-    end
-  end
-
-  def unblock_user
-    user = User.where(phone_number: params['phone_number'])
-    if user.present?
-      user.update(banned: false, reason: '')
-      render json: user, status: :ok
-    else
-      render status: :not_found
-    end
-  end
 
   protected
 
@@ -70,7 +38,7 @@ class SuperusersController < APIBaseController
   end
 
   def default_superuser_fields
-    %i[push_token login]
+    %i[login]
   end
 
   def update_superuser_params

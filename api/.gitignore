@@ -16,6 +16,5 @@
 !/public/favicon.ico
 !/log/.keep
 !/tmp/.keep
-/config/secrets.yml
 
 .byebug_history
